@@ -8,17 +8,32 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     * NOTE: Tabel users untuk superadmin, owner, dan kasir
+     * - owner_id digunakan untuk kasir (menunjuk ke owner-nya)
+     * - role: superadmin, owner, kasir
+     * - SSO mendukung login dengan provider eksternal
      */
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('owner_id')->nullable()->comment('FK ke users untuk kasir');
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('phone', 20)->nullable();
+            $table->string('avatar')->nullable();
+            $table->enum('role', ['superadmin', 'owner', 'kasir'])->default('owner');
+            $table->boolean('is_active')->default(true);
+            $table->string('sso_provider', 50)->nullable()->comment('google, facebook, dll');
+            $table->string('sso_id')->nullable()->comment('ID dari SSO provider');
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');
+            $table->index('role');
+            $table->index('is_active');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
@@ -42,8 +57,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
+        Schema::dropIfExists('password_reset_tokens');
+        Schema::dropIfExists('users');
     }
 };
