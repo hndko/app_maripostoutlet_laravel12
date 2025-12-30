@@ -35,7 +35,7 @@ class SubscriptionController extends Controller
             'subscriptions' => $query->orderBy('created_at', 'desc')->get(),
         ];
 
-        return view('superadmin.subscriptions.index', $data);
+        return view('backend.subscriptions.index', $data);
     }
 
     /**
@@ -50,7 +50,7 @@ class SubscriptionController extends Controller
             'subscription' => $subscription,
         ];
 
-        return view('superadmin.subscriptions.show', $data);
+        return view('backend.subscriptions.show', $data);
     }
 
     /**
@@ -71,7 +71,7 @@ class SubscriptionController extends Controller
             'package' => $lifetimePackage,
         ];
 
-        return view('superadmin.subscriptions.create-lifetime', $data);
+        return view('backend.subscriptions.create-lifetime', $data);
     }
 
     /**

@@ -32,7 +32,7 @@ class SubscriptionPaymentController extends Controller
             'pendingCount' => SubscriptionPayment::where('status', 'pending')->count(),
         ];
 
-        return view('superadmin.subscription-payments.index', $data);
+        return view('backend.subscription-payments.index', $data);
     }
 
     /**
@@ -52,7 +52,7 @@ class SubscriptionPaymentController extends Controller
             'payment' => $payment,
         ];
 
-        return view('superadmin.subscription-payments.show', $data);
+        return view('backend.subscription-payments.show', $data);
     }
 
     /**

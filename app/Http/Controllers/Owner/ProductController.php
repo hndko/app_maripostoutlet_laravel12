@@ -45,7 +45,7 @@ class ProductController extends Controller
             'categories' => $outlet->categories()->where('is_active', true)->get(),
         ];
 
-        return view('owner.products.index', $data);
+        return view('backend.products.index', $data);
     }
 
     /**
@@ -76,7 +76,7 @@ class ProductController extends Controller
             'categories' => $outlet->categories()->where('is_active', true)->get(),
         ];
 
-        return view('owner.products.create', $data);
+        return view('backend.products.create', $data);
     }
 
     /**
@@ -139,7 +139,7 @@ class ProductController extends Controller
             'product' => $product,
         ];
 
-        return view('owner.products.show', $data);
+        return view('backend.products.show', $data);
     }
 
     /**
@@ -157,7 +157,7 @@ class ProductController extends Controller
             'categories' => $outlet->categories()->where('is_active', true)->get(),
         ];
 
-        return view('owner.products.edit', $data);
+        return view('backend.products.edit', $data);
     }
 
     /**

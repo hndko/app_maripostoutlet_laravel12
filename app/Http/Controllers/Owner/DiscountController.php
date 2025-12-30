@@ -24,7 +24,7 @@ class DiscountController extends Controller
             'discounts' => $discounts,
         ];
 
-        return view('owner.discounts.index', $data);
+        return view('backend.discounts.index', $data);
     }
 
     /**
@@ -39,7 +39,7 @@ class DiscountController extends Controller
             'outlet' => $outlet,
         ];
 
-        return view('owner.discounts.create', $data);
+        return view('backend.discounts.create', $data);
     }
 
     /**
@@ -93,7 +93,7 @@ class DiscountController extends Controller
             'discount' => $discount,
         ];
 
-        return view('owner.discounts.edit', $data);
+        return view('backend.discounts.edit', $data);
     }
 
     /**

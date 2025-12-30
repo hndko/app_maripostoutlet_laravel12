@@ -42,7 +42,7 @@ class UserController extends Controller
             'users' => $query->orderBy('created_at', 'desc')->get(),
         ];
 
-        return view('superadmin.users.index', $data);
+        return view('backend.users.index', $data);
     }
 
     /**
@@ -54,7 +54,7 @@ class UserController extends Controller
             'title' => 'Tambah User',
         ];
 
-        return view('superadmin.users.create', $data);
+        return view('backend.users.create', $data);
     }
 
     /**
@@ -109,7 +109,7 @@ class UserController extends Controller
             'user' => $user,
         ];
 
-        return view('superadmin.users.show', $data);
+        return view('backend.users.show', $data);
     }
 
     /**
@@ -126,7 +126,7 @@ class UserController extends Controller
             'owners' => $owners,
         ];
 
-        return view('superadmin.users.edit', $data);
+        return view('backend.users.edit', $data);
     }
 
     /**

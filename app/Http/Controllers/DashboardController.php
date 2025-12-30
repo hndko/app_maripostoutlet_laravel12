@@ -18,12 +18,42 @@ class DashboardController extends Controller
     {
         $user = auth()->user();
 
-        return match ($user->role) {
-            'superadmin' => redirect()->route('superadmin.dashboard'),
-            'owner' => redirect()->route('owner.dashboard'),
-            'kasir' => redirect()->route('pos.index'),
-            default => redirect()->route('login'),
-        };
+        if ($user->isCashier()) {
+            return redirect()->route('pos.index');
+        }
+
+        if ($user->isSuperadmin()) {
+            $stats = [
+                'total_owners' => User::where('role', 'owner')->count(),
+                'total_cashiers' => User::where('role', 'kasir')->count(),
+                'active_subscriptions' => Subscription::where('status', 'active')->count(),
+                'pending_payments' => SubscriptionPayment::where('status', 'pending')->count(),
+                'monthly_revenue' => SubscriptionPayment::where('status', 'paid')
+                    ->whereMonth('paid_at', now()->month)
+                    ->whereYear('paid_at', now()->year)
+                    ->sum('amount'),
+            ];
+        } else {
+            $outletIds = $user->outlets()->pluck('id');
+            $stats = [
+                'total_outlets' => $user->outlets()->count(),
+                'total_products' => \App\Models\Product::whereIn('outlet_id', $outletIds)->count(),
+                'total_cashiers' => $user->cashiers()->count(),
+                'today_transactions' => Transaction::whereIn('outlet_id', $outletIds)
+                    ->whereDate('created_at', now())
+                    ->count(),
+                'today_revenue' => Transaction::whereIn('outlet_id', $outletIds)
+                    ->whereDate('created_at', now())
+                    ->where('payment_status', 'paid')
+                    ->sum('total'),
+                'weekly_revenue' => Transaction::whereIn('outlet_id', $outletIds)
+                    ->whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()])
+                    ->where('payment_status', 'paid')
+                    ->sum('total'),
+            ];
+        }
+
+        return view('backend.dashboard', compact('stats'));
     }
 
     /**
@@ -35,30 +65,7 @@ class DashboardController extends Controller
      */
     public function superadmin()
     {
-        $data = [
-            'title' => 'Dashboard Superadmin',
-            'totalOwners' => User::where('role', 'owner')->count(),
-            'totalCashiers' => User::where('role', 'kasir')->count(),
-            'activeSubscriptions' => Subscription::where('status', 'active')->count(),
-            'pendingPayments' => SubscriptionPayment::where('status', 'pending')->count(),
-            'monthlyRevenue' => SubscriptionPayment::where('status', 'paid')
-                ->whereMonth('paid_at', now()->month)
-                ->whereYear('paid_at', now()->year)
-                ->sum('amount'),
-            'recentPayments' => SubscriptionPayment::with(['subscription.owner', 'subscription.package'])
-                ->orderBy('created_at', 'desc')
-                ->limit(10)
-                ->get(),
-            'expiringSubscriptions' => Subscription::with(['owner', 'package'])
-                ->where('status', 'active')
-                ->whereNotNull('end_date')
-                ->whereBetween('end_date', [now(), now()->addDays(7)])
-                ->orderBy('end_date')
-                ->limit(10)
-                ->get(),
-        ];
-
-        return view('superadmin.dashboard', $data);
+        return redirect()->route('dashboard');
     }
 
     /**
@@ -72,46 +79,6 @@ class DashboardController extends Controller
      */
     public function owner()
     {
-        $user = auth()->user();
-
-        // Ambil subscription aktif
-        $subscription = $user->activeSubscription;
-
-        // Hitung statistik
-        $outletIds = $user->outlets()->pluck('id');
-
-        $data = [
-            'title' => 'Dashboard Owner',
-            'subscription' => $subscription,
-            'remainingDays' => $subscription?->remainingDays(),
-            'isExpiringSoon' => $subscription?->isExpiringSoon(7) ?? false,
-            'totalOutlets' => $user->outlets()->count(),
-            'totalProducts' => \App\Models\Product::whereIn('outlet_id', $outletIds)->count(),
-            'totalCashiers' => $user->cashiers()->count(),
-            'todayTransactions' => Transaction::whereIn('outlet_id', $outletIds)
-                ->whereDate('created_at', now())
-                ->count(),
-            'todayRevenue' => Transaction::whereIn('outlet_id', $outletIds)
-                ->whereDate('created_at', now())
-                ->where('payment_status', 'paid')
-                ->sum('total'),
-            'weeklyRevenue' => Transaction::whereIn('outlet_id', $outletIds)
-                ->whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()])
-                ->where('payment_status', 'paid')
-                ->sum('total'),
-            'monthlyRevenue' => Transaction::whereIn('outlet_id', $outletIds)
-                ->whereMonth('created_at', now()->month)
-                ->whereYear('created_at', now()->year)
-                ->where('payment_status', 'paid')
-                ->sum('total'),
-            'recentTransactions' => Transaction::with(['outlet', 'cashier'])
-                ->whereIn('outlet_id', $outletIds)
-                ->orderBy('created_at', 'desc')
-                ->limit(10)
-                ->get(),
-            'outlets' => $user->outlets()->withCount(['products', 'transactions'])->get(),
-        ];
-
-        return view('owner.dashboard', $data);
+        return redirect()->route('dashboard');
     }
 }

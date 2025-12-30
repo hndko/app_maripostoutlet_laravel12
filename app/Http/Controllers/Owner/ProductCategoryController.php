@@ -25,7 +25,7 @@ class ProductCategoryController extends Controller
             'categories' => $categories,
         ];
 
-        return view('owner.categories.index', $data);
+        return view('backend.categories.index', $data);
     }
 
     /**
@@ -40,7 +40,7 @@ class ProductCategoryController extends Controller
             'outlet' => $outlet,
         ];
 
-        return view('owner.categories.create', $data);
+        return view('backend.categories.create', $data);
     }
 
     /**
@@ -91,7 +91,7 @@ class ProductCategoryController extends Controller
             'category' => $category,
         ];
 
-        return view('owner.categories.edit', $data);
+        return view('backend.categories.edit', $data);
     }
 
     /**

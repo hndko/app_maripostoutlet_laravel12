@@ -46,7 +46,7 @@ class ActivityLogController extends Controller
             'modules' => UserActivityLog::select('module')->distinct()->pluck('module'),
         ];
 
-        return view('superadmin.activity-logs.index', $data);
+        return view('backend.activity-logs.index', $data);
     }
 
     /**
@@ -61,6 +61,6 @@ class ActivityLogController extends Controller
             'log' => $log,
         ];
 
-        return view('superadmin.activity-logs.show', $data);
+        return view('backend.activity-logs.show', $data);
     }
 }

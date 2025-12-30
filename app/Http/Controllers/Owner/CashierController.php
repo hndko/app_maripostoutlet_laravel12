@@ -22,7 +22,7 @@ class CashierController extends Controller
             'cashiers' => $cashiers,
         ];
 
-        return view('owner.cashiers.index', $data);
+        return view('backend.cashiers.index', $data);
     }
 
     /**
@@ -47,7 +47,7 @@ class CashierController extends Controller
             'title' => 'Tambah Kasir',
         ];
 
-        return view('owner.cashiers.create', $data);
+        return view('backend.cashiers.create', $data);
     }
 
     /**
@@ -102,7 +102,7 @@ class CashierController extends Controller
             'cashier' => $cashier,
         ];
 
-        return view('owner.cashiers.edit', $data);
+        return view('backend.cashiers.edit', $data);
     }
 
     /**

@@ -30,7 +30,7 @@ class SubscriptionController extends Controller
             'payments' => $payments,
         ];
 
-        return view('owner.subscription.index', $data);
+        return view('backend.subscription.index', $data);
     }
 
     /**
@@ -45,7 +45,7 @@ class SubscriptionController extends Controller
             'packages' => $packages,
         ];
 
-        return view('owner.subscription.packages', $data);
+        return view('backend.subscription.packages', $data);
     }
 
     /**
@@ -71,7 +71,7 @@ class SubscriptionController extends Controller
             'gateways' => $gateways,
         ];
 
-        return view('owner.subscription.checkout', $data);
+        return view('backend.subscription.checkout', $data);
     }
 
     /**
@@ -150,7 +150,7 @@ class SubscriptionController extends Controller
             'payment' => $payment,
         ];
 
-        return view('owner.subscription.payment-status', $data);
+        return view('backend.subscription.payment-status', $data);
     }
 
     /**

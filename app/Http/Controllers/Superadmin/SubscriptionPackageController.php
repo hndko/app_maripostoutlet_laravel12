@@ -19,7 +19,7 @@ class SubscriptionPackageController extends Controller
             'packages' => SubscriptionPackage::orderBy('sort_order')->get(),
         ];
 
-        return view('superadmin.subscription-packages.index', $data);
+        return view('backend.subscription-packages.index', $data);
     }
 
     /**
@@ -31,7 +31,7 @@ class SubscriptionPackageController extends Controller
             'title' => 'Tambah Paket Langganan',
         ];
 
-        return view('superadmin.subscription-packages.create', $data);
+        return view('backend.subscription-packages.create', $data);
     }
 
     /**
@@ -96,7 +96,7 @@ class SubscriptionPackageController extends Controller
             'package' => $package,
         ];
 
-        return view('superadmin.subscription-packages.show', $data);
+        return view('backend.subscription-packages.show', $data);
     }
 
     /**
@@ -111,7 +111,7 @@ class SubscriptionPackageController extends Controller
             'package' => $package,
         ];
 
-        return view('superadmin.subscription-packages.edit', $data);
+        return view('backend.subscription-packages.edit', $data);
     }
 
     /**

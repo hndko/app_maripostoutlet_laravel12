@@ -24,7 +24,7 @@ class OutletController extends Controller
             'outlets' => $outlets,
         ];
 
-        return view('owner.outlets.index', $data);
+        return view('backend.outlets.index', $data);
     }
 
     /**
@@ -49,7 +49,7 @@ class OutletController extends Controller
             'title' => 'Tambah Outlet',
         ];
 
-        return view('owner.outlets.create', $data);
+        return view('backend.outlets.create', $data);
     }
 
     /**
@@ -108,7 +108,7 @@ class OutletController extends Controller
             'outlet' => $outlet,
         ];
 
-        return view('owner.outlets.show', $data);
+        return view('backend.outlets.show', $data);
     }
 
     /**
@@ -123,7 +123,7 @@ class OutletController extends Controller
             'outlet' => $outlet,
         ];
 
-        return view('owner.outlets.edit', $data);
+        return view('backend.outlets.edit', $data);
     }
 
     /**

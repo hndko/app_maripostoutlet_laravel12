@@ -26,7 +26,7 @@ class PaymentMethodController extends Controller
             'paymentMethods' => $paymentMethods,
         ];
 
-        return view('owner.payment-methods.index', $data);
+        return view('backend.payment-methods.index', $data);
     }
 
     /**
@@ -43,7 +43,7 @@ class PaymentMethodController extends Controller
             'gateways' => $gateways,
         ];
 
-        return view('owner.payment-methods.create', $data);
+        return view('backend.payment-methods.create', $data);
     }
 
     /**
@@ -110,7 +110,7 @@ class PaymentMethodController extends Controller
             'gateways' => $gateways,
         ];
 
-        return view('owner.payment-methods.edit', $data);
+        return view('backend.payment-methods.edit', $data);
     }
 
     /**

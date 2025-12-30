@@ -1,69 +1,70 @@
-@extends('layouts.auth')
+@extends('layout.app-auth')
 
 @section('title', 'Login')
 
 @section('content')
-<div class="auth-card">
-    <div class="auth-header">
-        <h1><i class="bi bi-shop me-2"></i>{{ setting('website_name', 'Maripos Outlet') }}</h1>
-        <p>Masuk ke akun Anda</p>
+<form action="{{ route('login.post') }}" method="POST" class="space-y-5">
+    @csrf
+
+    <div class="text-center mb-6">
+        <h2 class="text-2xl font-bold text-slate-800">Selamat Datang</h2>
+        <p class="text-slate-500 text-sm">Masuk ke akun Anda</p>
     </div>
 
-    <div class="auth-body">
-        @if($errors->any())
-        <div class="alert alert-danger">
-            <i class="bi bi-exclamation-circle me-2"></i>
-            @foreach($errors->all() as $error)
-            {{ $error }}<br>
-            @endforeach
-        </div>
-        @endif
+    {{-- Email --}}
+    <div>
+        <label class="block text-sm font-medium text-slate-700 mb-1.5">
+            <i class="fas fa-envelope mr-1 text-slate-400"></i> Email
+        </label>
+        <input type="email" name="email" value="{{ old('email') }}"
+            class="w-full px-4 py-2.5 rounded-lg border border-slate-300 bg-white text-slate-800 placeholder:text-slate-400 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 focus:outline-none transition-all @error('email') border-red-500 @enderror"
+            placeholder="email@example.com" required autofocus>
+        @error('email')
+        <p class="text-red-500 text-xs mt-1"><i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}</p>
+        @enderror
+    </div>
 
-        <form action="{{ route('login.post') }}" method="POST">
-            @csrf
-
-            <div class="form-floating-icon">
-                <i class="bi bi-envelope input-icon"></i>
-                <div class="form-floating">
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Email"
-                        value="{{ old('email') }}" required autofocus>
-                    <label for="email">Email</label>
-                </div>
-            </div>
-
-            <div class="form-floating-icon">
-                <i class="bi bi-lock input-icon"></i>
-                <div class="form-floating">
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Password"
-                        required>
-                    <label for="password">Password</label>
-                </div>
-            </div>
-
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="remember" id="remember">
-                    <label class="form-check-label" for="remember">Ingat saya</label>
-                </div>
-            </div>
-
-            <button type="submit" class="btn btn-primary">
-                <i class="bi bi-box-arrow-in-right me-2"></i>Masuk
+    {{-- Password --}}
+    <div>
+        <label class="block text-sm font-medium text-slate-700 mb-1.5">
+            <i class="fas fa-lock mr-1 text-slate-400"></i> Password
+        </label>
+        <div x-data="{ show: false }" class="relative">
+            <input :type="show ? 'text' : 'password'" name="password"
+                class="w-full px-4 py-2.5 rounded-lg border border-slate-300 bg-white text-slate-800 placeholder:text-slate-400 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 focus:outline-none transition-all pr-10 @error('password') border-red-500 @enderror"
+                placeholder="••••••••" required>
+            <button type="button" @click="show = !show"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+                <i :class="show ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
             </button>
-        </form>
-
-        <div class="divider">
-            <span>atau</span>
         </div>
-
-        <a href="{{ route('auth.provider.redirect', 'google') }}" class="btn-social">
-            <img src="https://www.google.com/favicon.ico" alt="Google">
-            Masuk dengan Google
-        </a>
+        @error('password')
+        <p class="text-red-500 text-xs mt-1"><i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}</p>
+        @enderror
     </div>
 
-    <div class="auth-footer">
-        <p class="mb-0">Belum punya akun? <a href="{{ route('register') }}">Daftar sekarang</a></p>
+    {{-- Remember --}}
+    <div class="flex items-center justify-between">
+        <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" name="remember"
+                class="w-4 h-4 rounded border-slate-300 text-primary-600 focus:ring-primary-500">
+            <span class="text-sm text-slate-600">Ingat saya</span>
+        </label>
+        <a href="#" class="text-sm text-primary-600 hover:text-primary-700">Lupa password?</a>
     </div>
-</div>
+
+    {{-- Submit --}}
+    <button type="submit"
+        class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-medium bg-primary-600 text-white hover:bg-primary-700 active:bg-primary-800 shadow-sm transition-all">
+        <i class="fas fa-sign-in-alt"></i>
+        <span>Masuk</span>
+    </button>
+
+    {{-- Register Link --}}
+    <p class="text-center text-sm text-slate-500">
+        Belum punya akun?
+        <a href="{{ route('register') }}" class="text-primary-600 hover:text-primary-700 font-medium">Daftar
+            sekarang</a>
+    </p>
+</form>
 @endsection

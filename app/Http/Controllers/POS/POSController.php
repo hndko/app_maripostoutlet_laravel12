@@ -41,7 +41,7 @@ class POSController extends Controller
             'outlets' => $outlets,
         ];
 
-        return view('pos.select-outlet', $data);
+        return view('backend.pos.select-outlet', $data);
     }
 
     /**
@@ -60,7 +60,7 @@ class POSController extends Controller
             'paymentMethods' => $paymentMethods,
         ];
 
-        return view('pos.index', $data);
+        return view('backend.pos.index', $data);
     }
 
     /**
@@ -269,7 +269,7 @@ class POSController extends Controller
             'transaction' => $transaction,
         ];
 
-        return view('pos.receipt', $data);
+        return view('backend.pos.receipt', $data);
     }
 
     /**

@@ -25,7 +25,7 @@ class SystemSettingController extends Controller
             'settings' => SystemSetting::all()->groupBy('group'),
         ];
 
-        return view('superadmin.settings.index', $data);
+        return view('backend.settings.index', $data);
     }
 
     /**
@@ -45,7 +45,7 @@ class SystemSettingController extends Controller
             'settings' => $settings,
         ];
 
-        return view('superadmin.settings.edit', $data);
+        return view('backend.settings.edit', $data);
     }
 
     /**

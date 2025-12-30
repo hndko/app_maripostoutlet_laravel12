@@ -20,7 +20,7 @@ class PaymentGatewayController extends Controller
             'gateways' => PaymentGateway::all(),
         ];
 
-        return view('superadmin.payment-gateways.index', $data);
+        return view('backend.payment-gateways.index', $data);
     }
 
     /**
@@ -35,7 +35,7 @@ class PaymentGatewayController extends Controller
             'gateway' => $gateway,
         ];
 
-        return view('superadmin.payment-gateways.edit', $data);
+        return view('backend.payment-gateways.edit', $data);
     }
 
     /**

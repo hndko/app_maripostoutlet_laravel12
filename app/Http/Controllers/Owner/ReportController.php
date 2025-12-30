@@ -38,7 +38,7 @@ class ReportController extends Controller
             'outlets' => $user->outlets,
         ];
 
-        return view('owner.reports.sales', $data);
+        return view('backend.reports.sales', $data);
     }
 
     /**
@@ -54,7 +54,7 @@ class ReportController extends Controller
             'outlets' => $user->outlets,
         ];
 
-        return view('owner.reports.products', $data);
+        return view('backend.reports.products', $data);
     }
 
     /**
@@ -69,6 +69,6 @@ class ReportController extends Controller
             'cashiers' => $user->cashiers,
         ];
 
-        return view('owner.reports.cashiers', $data);
+        return view('backend.reports.cashiers', $data);
     }
 }

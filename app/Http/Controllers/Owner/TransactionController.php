@@ -41,7 +41,7 @@ class TransactionController extends Controller
             'outlets' => $user->outlets,
         ];
 
-        return view('owner.transactions.index', $data);
+        return view('backend.transactions.index', $data);
     }
 
     /**
@@ -61,7 +61,7 @@ class TransactionController extends Controller
             'transaction' => $transaction,
         ];
 
-        return view('owner.transactions.show', $data);
+        return view('backend.transactions.show', $data);
     }
 
     /**
@@ -81,6 +81,6 @@ class TransactionController extends Controller
             'transaction' => $transaction,
         ];
 
-        return view('owner.transactions.print', $data);
+        return view('backend.transactions.print', $data);
     }
 }
