@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
+
 
 class UserSeeder extends Seeder
 {
@@ -19,8 +19,8 @@ class UserSeeder extends Seeder
         // Superadmin
         User::create([
             'name' => 'Super Admin',
-            'email' => 'superadmin@mariposoutlet.com',
-            'password' => Hash::make('password'),
+            'email' => 'superadmin@example.com',
+            'password' => 'password',
             'phone' => '081234567890',
             'role' => 'superadmin',
             'is_active' => true,
@@ -30,8 +30,8 @@ class UserSeeder extends Seeder
         // Owner Demo
         $owner = User::create([
             'name' => 'Demo Owner',
-            'email' => 'owner@mariposoutlet.com',
-            'password' => Hash::make('password'),
+            'email' => 'owner@example.com',
+            'password' => 'password',
             'phone' => '081234567891',
             'role' => 'owner',
             'is_active' => true,
@@ -42,8 +42,8 @@ class UserSeeder extends Seeder
         User::create([
             'owner_id' => $owner->id,
             'name' => 'Demo Kasir',
-            'email' => 'kasir@mariposoutlet.com',
-            'password' => Hash::make('password'),
+            'email' => 'kasir@example.com',
+            'password' => 'password',
             'phone' => '081234567892',
             'role' => 'kasir',
             'is_active' => true,
